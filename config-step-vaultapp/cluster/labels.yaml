@@ -1,0 +1,9 @@
+apiVersion: builtin
+kind: LabelTransformer
+metadata:
+  name: name
+name:
+  env: vault
+fieldSpecs:
+  - path: metadata/name
+    create: true
