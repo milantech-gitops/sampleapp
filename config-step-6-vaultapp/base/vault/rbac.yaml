@@ -45,4 +45,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: vault
-    namespace: realtime-stg
+    namespace: #@ data.values.app_namespace
