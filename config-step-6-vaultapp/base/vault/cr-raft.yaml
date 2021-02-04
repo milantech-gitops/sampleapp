@@ -10,7 +10,7 @@
 apiVersion: "vault.banzaicloud.com/v1alpha1"
 kind: "Vault"
 metadata:
-  name: #@ "{}-".format(data.values.app_name)+version
+  name: #@ "{}-".format(data.values.app_name)-cr
   labels: #@ labels()
 spec:
   size: #@ data.values.scaling_factor // 2
