@@ -2,3 +2,4 @@
 ---
 app_name: "prometheus-operator"
 scaling_factor: 2
+app_namespace: ""
