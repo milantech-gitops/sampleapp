@@ -172,7 +172,7 @@ spec:
         roles:
           # Allow every pod in the default namespace to use the secret kv store
           - name: default
-            bound_service_account_names: ["default", "vault-secrets-webhook", "vault", "vault-system"]
+            bound_service_account_names: ["default", "vault-secrets-webhook", "vault", "vault-system","realtime-stg"]
             bound_service_account_namespaces: ["default", "vswh", "vault-system", "realtime-stg"]
             policies: allow_secrets
             ttl: 1h
