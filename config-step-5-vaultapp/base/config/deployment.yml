@@ -10,7 +10,7 @@ metadata:
     comment: "This deployment was lifted from\nthe prometheus K8s configuration.\nYou might notice that this line\nis supplied as a single string\nin the source, but a multi-line\nstring in the output."
   labels: #@ labels()
   name: #@ data.values.app_name
-  namespace: #@ data.values.app_namespace
+  #!namespace: #@ data.values.app_namespace
 spec:
   replicas: #@ data.values.scaling_factor // 2
   selector:
