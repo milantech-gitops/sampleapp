@@ -67,6 +67,16 @@ spec:
   # forces you to expose your Service on a NodePort
   serviceType: ClusterIP
 
+  service:
+    name: vault
+    type: ClusterIP
+    port: 8200
+    targetPort: 8200
+    ## Force load balancer IP
+    # loadBalancerIP: 1.2.3.4
+    # annotations:
+    #   cloud.google.com/load-balancer-type: "Internal"
+
   # Request an Ingress controller with the default configuration
   ingress:
     enabled: true
@@ -76,7 +86,11 @@ spec:
     # to support TLS backends
     annotations:
       kubernetes.io/ingress.class: traefik    
-      kubernetes.io/tls-acme: "true"
+      cert-manager.io/cluster-issuer: "letsencrypt-staging"
+      traefik.ingress.kubernetes.io/auth-type: basic
+      traefik.ingress.kubernetes.io/auth-secret: kubeview-auth
+      traefik.ingress.kubernetes.io/frontend-entry-points: "https"
+
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
