@@ -8,32 +8,21 @@ spec:
   routes:
     - match: HostSNI(`vault.milantech.live`)  
       services:
-        - name: api@internal
-          kind: TraefikService
-
-
-
-spec:
-  entryPoints:                  # [1]
-    - footcp
-  routes:                       # [2]
-  - match: HostSNI(`*`)         # [3]
-    services:                   # [4]
-    - name: foo                 # [5]
-      port: 8080                # [6]
-      weight: 10                # [7]
-      terminationDelay: 400     # [8]
-      proxyProtocol:            # [9]
-        version: 1              # [10]
-  tls:                          # [11]
-    secretName: supersecret     # [12]
-    options:                    # [13]
-      name: opt                 # [14]
-      namespace: default        # [15]
-    certResolver: foo           # [16]
-    domains:                    # [17]
-    - main: example.net         # [18]
-      sans:                     # [19]
-      - a.example.net
-      - b.example.net
-    passthrough: false          # [20]
+        - name: vault
+          port: 8200
+          weight: 10                # [7]
+          terminationDelay: 400     # [8]
+          proxyProtocol:            # [9]
+            version: 1              # [10]
+      tls:                          # [11]
+        secretName: vault-milantech-live-tls     # [12]
+        options:                    # [13]
+          name: opt                 # [14]
+        certResolver: vault           # [16]
+        domains:                    # [17]
+        - main: vault.milantech.live         # [18]
+          sans:                     # [19]
+          - vault-0.milantech.live
+          - vault-1.milantech.live
+          - vault-2.milantech.live
+        passthrough: true          # [20]
