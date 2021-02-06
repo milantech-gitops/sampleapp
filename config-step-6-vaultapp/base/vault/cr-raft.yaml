@@ -94,13 +94,27 @@ spec:
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
     spec:
       rules:
-        - host: vault.milantech.live
-        - http:
-            paths:
-              - path: /*
-                backend:
-                  serviceName: vault
-                  servicePort: 8200
+      - host: vault.milantech.live
+        http:
+          paths:
+          - backend:
+              service:
+                name: vault
+                port:
+                  number: 8200
+            path: /
+            pathType: ImplementationSpecific
+      tls:
+      - hosts:
+        - vault.milantech.live
+        secretName: kube-milantech-info-tls      
+        # - host: vault.milantech.live
+        # - http:
+        #     paths:
+        #       - path: /*
+        #         backend:
+        #           serviceName: vault
+        #           servicePort: 8200
 
   # In some cases, you have to set permissions for the raft directory.
   # For example in the case of using a local kind cluster, uncomment the lines below.
