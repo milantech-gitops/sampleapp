@@ -5,8 +5,7 @@ metadata:
   name: vault-ui
 spec:
   entryPoints:
-    - http
-    - https
+    - websecure
   routes:
     - match: Host(`vault.milantech.live`)
       kind: Rule
