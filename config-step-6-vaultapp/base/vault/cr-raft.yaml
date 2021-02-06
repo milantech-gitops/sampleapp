@@ -65,7 +65,7 @@ spec:
   # Specify the Service's type where the Vault Service is exposed
   # Please note that some Ingress controllers like https://github.com/kubernetes/ingress-gce
   # forces you to expose your Service on a NodePort
-  serviceType: ClusterIP
+  serviceType: NodePort
 
   # service:
   #   name: vault
@@ -79,7 +79,7 @@ spec:
 
   # Request an Ingress controller with the default configuration
   ingress:
-    enabled: true
+    enabled: false
     # alb.ingress.kubernetes.io/certificate-arn: #@ data.values.certificate_arn
     # Specify Ingress object annotations here, if TLS is enabled (which is by default)
     # the operator will add NGINX, Traefik and HAProxy Ingress compatible annotations
@@ -103,11 +103,7 @@ spec:
                 port:
                   number: 8200
             path: /
-            pathType: ImplementationSpecific
-      tls:
-      - hosts:
-        - vault.milantech.live
-        secretName: kube-milantech-info-tls      
+            pathType: ImplementationSpecific 
         # - host: vault.milantech.live
         # - http:
         #     paths:
