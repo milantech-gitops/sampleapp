@@ -98,8 +98,8 @@ spec:
      - vault.milantech.live
     annotations:
       ingress.kubernetes.io/protocol: https
-      kubernetes.io/ingress.class: traefik
       ingress.kubernetes.io/auth-tls-insecure: "true"
+      kubernetes.io/ingress.class: traefik
       cert-manager.io/cluster-issuer: "letsencrypt-staging"
       kubernetes.io/tls-acme: "true"
     tls:
