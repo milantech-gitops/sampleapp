@@ -102,9 +102,9 @@ spec:
       kubernetes.io/tls-acme: "true"
     tls:
       # Secrets must be manually created in the namespace.
-      - hosts:
+      - secretName: vault-milantech-live-tls
+        hosts:
           - vault.milantech.live   
-        secretName: vault-milantech-live-tls
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
