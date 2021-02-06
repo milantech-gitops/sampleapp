@@ -79,31 +79,47 @@ spec:
     #   cloud.google.com/load-balancer-type: "Internal"
 
   # Request an Ingress controller with the default configuration
-  ingress:
-    enabled: false
+  # ingress:
+  #   enabled: false
     # alb.ingress.kubernetes.io/certificate-arn: #@ data.values.certificate_arn
     # Specify Ingress object annotations here, if TLS is enabled (which is by default)
     # the operator will add NGINX, Traefik and HAProxy Ingress compatible annotations
     # to support TLS backends
+    # annotations:
+    #   kubernetes.io/ingress.class: traefik
+    #   traefik.ingress.kubernetes.io/pass-tls-cert: "true"
+    #   traefik.ingress.kubernetes.io/rewrite-target: /$1
+
+
+  ingress:
+    enabled: true
+    # Used to create Ingress record (should used with service.type: ClusterIP).
+    hosts:
+     - vault.milantech.live
     annotations:
       kubernetes.io/ingress.class: traefik
-      traefik.ingress.kubernetes.io/pass-tls-cert: "true"
-      traefik.ingress.kubernetes.io/rewrite-target: /$1
+      cert-manager.io/cluster-issuer: "letsencrypt-staging"
+      kubernetes.io/tls-acme: "true"
+    tls:
+      # Secrets must be manually created in the namespace.
+      - secretName: vault-milantech-live-tls
+        hosts:
+          - vault.milantech.live   
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
-    spec:
-      rules:
-        - host: vault.milantech.live
-          http:
-            paths:
-              - path: /*
-                pathType: Prefix
-                backend:
-                  service:
-                    name: vault
-                    port:
-                      number: 8200
+    # spec:
+    #   rules:
+    #     - host: vault.milantech.live
+    #       http:
+    #         paths:
+    #           - path: /*
+    #             pathType: Prefix
+    #             backend:
+    #               service:
+    #                 name: vault
+    #                 port:
+    #                   number: 8200
   # In some cases, you have to set permissions for the raft directory.
   # For example in the case of using a local kind cluster, uncomment the lines below.
   # vaultInitContainers:

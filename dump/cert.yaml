@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: vault-ingress
+  labels:
+    cert: vault-ingress
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+spec:
+  secretName: vault-milantech-live-tls
+  dnsNames:
+    - vault.milantech.live
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
