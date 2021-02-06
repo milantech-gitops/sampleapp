@@ -80,7 +80,7 @@ spec:
 
   # Request an Ingress controller with the default configuration
   ingress:
-    enabled: false
+    enabled: true
     # alb.ingress.kubernetes.io/certificate-arn: #@ data.values.certificate_arn
     # Specify Ingress object annotations here, if TLS is enabled (which is by default)
     # the operator will add NGINX, Traefik and HAProxy Ingress compatible annotations
