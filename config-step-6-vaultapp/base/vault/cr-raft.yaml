@@ -85,10 +85,7 @@ spec:
     # the operator will add NGINX, Traefik and HAProxy Ingress compatible annotations
     # to support TLS backends
     annotations:
-      kubernetes.io/ingress.class: traefik    
-      cert-manager.io/cluster-issuer: "letsencrypt-staging"
-      traefik.ingress.kubernetes.io/frontend-entry-points: "https"
-
+      kubernetes.io/ingress.class: traefik
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
@@ -102,8 +99,12 @@ spec:
                 name: vault
                 port:
                   number: 8200
-            path: /
+            path: /*
             pathType: ImplementationSpecific 
+      hosts:
+        - host: kubeview.milantech.live
+          paths: [ "/" ]
+                      
         # - host: vault.milantech.live
         # - http:
         #     paths:
