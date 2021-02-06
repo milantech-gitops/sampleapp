@@ -86,7 +86,7 @@ spec:
     # the operator will add NGINX, Traefik and HAProxy Ingress compatible annotations
     # to support TLS backends
     annotations:
-      kubernetes.io/ingress.class: traefik-init
+      kubernetes.io/ingress.class: traefik
       traefik.ingress.kubernetes.io/pass-tls-cert: "true"
       traefik.ingress.kubernetes.io/rewrite-target: /$1
     # Override the default Ingress specification here
