@@ -97,6 +97,7 @@ spec:
     hosts:
      - vault.milantech.live
     annotations:
+      ingress.kubernetes.io/protocol: https
       kubernetes.io/ingress.class: traefik
       cert-manager.io/cluster-issuer: "letsencrypt-staging"
       kubernetes.io/tls-acme: "true"
