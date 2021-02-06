@@ -68,11 +68,11 @@ spec:
   # forces you to expose your Service on a NodePort
   serviceType: ClusterIP
 
-  service:
-    name: vault
-    type: ClusterIP
-    port: 8200
-    targetPort: 8200
+  # service:
+  #   name: vault
+  #   type: ClusterIP
+  #   port: 8200
+  #   targetPort: 8200
     ## Force load balancer IP
     # loadBalancerIP: 1.2.3.4
     # annotations:
@@ -108,18 +108,18 @@ spec:
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
-    # spec:
-    #   rules:
-    #     - host: vault.milantech.live
-    #       http:
-    #         paths:
-    #           - path: /*
-    #             pathType: Prefix
-    #             backend:
-    #               service:
-    #                 name: vault
-    #                 port:
-    #                   number: 8200
+      spec:
+        rules:
+          - host: vault.milantech.live
+            http:
+              paths:
+                - path: /*
+                  pathType: Prefix
+                  backend:
+                    service:
+                      name: vault
+                      port:
+                        number: 8200
   # In some cases, you have to set permissions for the raft directory.
   # For example in the case of using a local kind cluster, uncomment the lines below.
   # vaultInitContainers:
