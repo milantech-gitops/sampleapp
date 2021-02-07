@@ -134,7 +134,8 @@ spec:
   caNamespaces:
     - "vswh"
     - "certs"
-
+    - "realtime-stg"
+    
   # Describe where you would like to store the Vault unseal keys and root token.
   unsealConfig:
     options:
