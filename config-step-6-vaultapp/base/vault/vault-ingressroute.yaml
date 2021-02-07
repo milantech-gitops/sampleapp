@@ -26,7 +26,7 @@ spec:
             port:
               number: 8200
         path: /*
-        pathType: ImplementationSpecific
+        pathType: PathPrefix
   # tls:
   # - hosts:
   #   - vault.milantech.live
