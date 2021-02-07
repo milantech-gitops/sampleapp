@@ -92,35 +92,35 @@ spec:
 
 
   ingress:
-    enabled: true
+    enabled: false
     # Used to create Ingress record (should used with service.type: ClusterIP).
-    hosts:
-     - vault.milantech.live
-    annotations:
-      ingress.kubernetes.io/protocol: https
-      ingress.kubernetes.io/auth-tls-insecure: "true"
-      kubernetes.io/ingress.class: traefik
-      cert-manager.io/cluster-issuer: "letsencrypt-staging"
-      kubernetes.io/tls-acme: "true"
+    # hosts:
+    #  - vault.milantech.live
+    # annotations:
+    #   ingress.kubernetes.io/protocol: https
+    #   ingress.kubernetes.io/auth-tls-insecure: "true"
+    #   kubernetes.io/ingress.class: traefik
+    #   cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    #   kubernetes.io/tls-acme: "true"
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
-    spec:
-      rules:
-      - host: vault.milantech.live
-        http:
-          paths:
-          - backend:
-              service:
-                name: vault
-                port:
-                  number: 8200
-            path: /*
-            pathType: ImplementationSpecific
-      tls:
-      - hosts:
-        - vault.milantech.live 
-        secretName: vault-milantech-live-tls                  
+    # spec:
+    #   rules:
+    #   - host: vault.milantech.live
+    #     http:
+    #       paths:
+    #       - backend:
+    #           service:
+    #             name: vault
+    #             port:
+    #               number: 8200
+    #         path: /*
+    #         pathType: ImplementationSpecific
+    #   tls:
+    #   - hosts:
+    #     - vault.milantech.live 
+    #     secretName: vault-milantech-live-tls                  
   # In some cases, you have to set permissions for the raft directory.
   # For example in the case of using a local kind cluster, uncomment the lines below.
   # vaultInitContainers:

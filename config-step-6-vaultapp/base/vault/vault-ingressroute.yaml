@@ -1,28 +1,33 @@
 apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRouteTCP
+kind: Ingress
 metadata:
   name: vault-ui
+  namespace: realtime-stg
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    # defines controller implementing this ingress resource: https://docs.microsoft.com/en-us/azure/dev-spaces/how-to/ingress-https-traefik
+    # ingress.class annotation is being deprecated in Kubernetes 1.18: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
+    # For backwards compatibility, when this annotation is set, precedence is given over the new field ingressClassName under spec.
+    kubernetes.io/ingress.class: traefik-internal
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.tls.options: default
+    traefik.ingress.kubernetes.io/router.tls.certresolver: "acmeresolver"
+    # traefik.ingress.kubernetes.io/router.middlewares: app-gateway-snet@file, gzip-compress@file
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: HostSNI(`vault.milantech.live`)  
-      services:
-        - name: vault
-          port: 8200
-          weight: 10                # [7]
-          terminationDelay: 400     # [8]
-          proxyProtocol:            # [9]
-            version: 1              # [10]
-      tls:                          # [11]
-        secretName: vault-milantech-live-tls     # [12]
-        options:                    # [13]
-          name: opt                 # [14]
-        certResolver: vault           # [16]
-        domains:                    # [17]
-        - main: vault.milantech.live         # [18]
-          sans:                     # [19]
-          - vault-0.milantech.live
-          - vault-1.milantech.live
-          - vault-2.milantech.live
-        passthrough: true          # [20]
+  ingressClassName: traefik
+  rules:
+  - host: vault.milantech.live
+    http:
+      paths:
+      - backend:
+          service:
+            name: vault
+            port:
+              number: 8200
+        path: /*
+        pathType: ImplementationSpecific
+  tls:
+  - hosts:
+    - vault.milantech.live
+    secretName: vault-milantech-live-tls
