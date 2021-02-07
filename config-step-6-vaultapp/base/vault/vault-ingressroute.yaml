@@ -13,6 +13,8 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.tls.options: default
     traefik.ingress.kubernetes.io/router.tls.certresolver: "acmeresolver"
+    traefik.ingress.kubernetes.io/frontend-entry-points: "https"
+    cert-manager.io/cluster-issuer: "letsencrypt-staging"
     # traefik.ingress.kubernetes.io/router.middlewares: app-gateway-snet@file, gzip-compress@file
 spec:
   ingressClassName: traefik
@@ -27,7 +29,7 @@ spec:
               number: 8200
         path: /*
         pathType: PathPrefix
-  # tls:
-  # - hosts:
-  #   - vault.milantech.live
-  #   secretName: vault-milantech-live-tls
+  tls:
+  - hosts:
+    - vault.milantech.live
+    secretName: vault-milantech-live-tls
