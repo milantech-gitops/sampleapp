@@ -133,6 +133,7 @@ spec:
   # Define a list of namespaces or use ["*"] for all namespaces.
   caNamespaces:
     - "vswh"
+    - "certs"
 
   # Describe where you would like to store the Vault unseal keys and root token.
   unsealConfig:
@@ -190,6 +191,12 @@ spec:
             bound_service_account_namespaces: ["default", "vswh", "vault-system", "realtime-stg"]
             policies: allow_secrets
             ttl: 1h
+          # Allow the cert-manager pod in the cert-manager namespace to use the PKI engine
+          - name: cert-manager
+            bound_service_account_names: ["cert-manager"]
+            bound_service_account_namespaces: ["certs"]
+            policies: ["allow_pki"]
+            ttl: 1h
 
     secrets:
       - path: secret
@@ -197,6 +204,7 @@ spec:
         description: General secrets.
         options:
           version: 2
+
 
     # Allows writing some secrets to Vault (useful for development purposes).
     # See https://www.vaultproject.io/docs/secrets/kv/index.html for more information.
