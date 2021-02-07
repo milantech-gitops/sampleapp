@@ -103,7 +103,7 @@ spec:
       tls:
       - hosts:
         - vault.milantech.live
-        secretName: vault-milantech-live-tls    
+        secretName: vault-tls
 
 
 
@@ -135,7 +135,7 @@ spec:
     - "vswh"
     - "certs"
     - "realtime-stg"
-    
+
   # Describe where you would like to store the Vault unseal keys and root token.
   unsealConfig:
     options:
