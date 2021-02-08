@@ -68,43 +68,16 @@ spec:
   # forces you to expose your Service on a NodePort
   serviceType: ClusterIP
   
+  # Request an Ingress controller with the default configuration
   ingress:
     # Specify Ingress object annotations here, if TLS is enabled (which is by default)
     # the operator will add NGINX, Traefik and HAProxy Ingress compatible annotations
     # to support TLS backends
-    annotations:
-      kubernetes.io/ingress.allow-http: "false"
-      # defines controller implementing this ingress resource: https://docs.microsoft.com/en-us/azure/dev-spaces/how-to/ingress-https-traefik
-      # ingress.class annotation is being deprecated in Kubernetes 1.18: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
-      # For backwards compatibility, when this annotation is set, precedence is given over the new field ingressClassName under spec.
-      # kubernetes.io/ingress.class: traefik-internal
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.tls: "true"
-      traefik.ingress.kubernetes.io/router.tls.options: default
-      traefik.ingress.kubernetes.io/router.tls.certresolver: "acmeresolver"
-      traefik.ingress.kubernetes.io/frontend-entry-points: "https"
-      cert-manager.io/cluster-issuer: "letsencrypt-staging"      
+    annotations: {}
     # Override the default Ingress specification here
     # This follows the same format as the standard Kubernetes Ingress
     # See: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.13/#ingressspec-v1beta1-extensions
-    spec: 
-      ingressClassName: traefik
-      rules:
-      - host: vault.milantech.live
-        http:
-          paths:
-          - backend:
-              service:
-                name: vault
-                port:
-                  number: 8200
-            path: /
-            pathType: ImplementationSpecific
-      tls:
-      - hosts:
-        - vault.milantech.live
-        secretName: vault-tls
-
+    spec: {}
 
 
   # Use local disk to store Vault raft data, see config section.

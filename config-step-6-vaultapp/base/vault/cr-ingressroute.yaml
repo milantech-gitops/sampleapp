@@ -1,0 +1,15 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vault-ingress
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`vault.milantech.live`)
+    kind: Rule
+    services:
+    - name: vault
+      port: 8200
+  tls:
+    certResolver: letsencrypt
